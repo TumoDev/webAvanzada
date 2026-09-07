@@ -10,7 +10,7 @@ Se evita que Angular CLI inicialice un segundo repositorio Git (.git) dentro de 
 
 **Pregunta 3.** ¿Qué verifica npm run build en esta etapa del laboratorio?
 
-Verifica que el proyecto Angular compile correctamente en modo producción: que no existan errores de TypeScript, de plantillas o de configuración, y que se puedan generar los artefactos finales (bundles JS/CSS/HTML) en la carpeta dist/. Confirma que la aplicación está lista para ser desplegada, no solo que "funciona" en modo desarrollo.
+Verifica que el proyecto Angular compile correctamente en modo producción: que no existan errores de TypeScript, de plantillas o de configuración, y que se puedan generar los artefactos finales en la carpeta dist/. Confirma que la aplicación está lista para ser desplegada, no solo que "funciona" en modo desarrollo.
 
 **Pregunta 4.** ¿Qué utilidad tiene revisar git status o git diff --cached antes de realizar un commit?
 
@@ -18,7 +18,7 @@ Permiten confirmar exactamente qué archivos y qué contenido se van a versionar
 
 **Pregunta 5.** ¿Qué evento activa el workflow ci.yml?
 
-Se activa cuando se crea o actualiza un Pull Request cuya rama base es main (pull_request: branches: [main]). Es decir, corre en cada push hacia una rama que tiene abierto un PR contra main.
+Se activa cuando se crea o actualiza un Pull Request cuya rama base es main. Es decir, corre en cada push hacia una rama que tiene abierto un PR contra main.
 
 **Pregunta 6.** En runs-on: ubuntu-latest, ¿qué representa ubuntu-latest?
 
@@ -28,11 +28,11 @@ Es el tipo de máquina virtual (runner) que GitHub Actions provisiona para ejecu
 
 Orden: 1) Obtener código (checkout) → 2) Configurar Node.js → 3) Instalar dependencias (npm ci) → 4) Ejecutar pruebas (npm test) → 5) Construir Angular (npm run build).
 
-npm ci debe ejecutarse antes que las pruebas porque instala exactamente las dependencias indicadas en package-lock.json, incluyendo los frameworks de testing (Karma/Jasmine) y las librerías de Angular necesarias para compilar y ejecutar los specs. Sin esas dependencias instaladas, los comandos npm test y npm run build fallarían por no encontrar los módulos requeridos.
+npm ci debe ejecutarse antes que las pruebas porque instala exactamente las dependencias indicadas en package-lock.json y las librerías de Angular necesarias para compilar y ejecutar los specs. Sin esas dependencias instaladas, los comandos npm test y npm run build fallarían por no encontrar los módulos requeridos.
 
 **Pregunta 8.** Después del push, indique qué etapa del pipeline falla y qué ocurre con las etapas siguientes.
 
-Falla la etapa "Ejecutar pruebas" (npm test -- --watch=false), ya que el test debe mostrar el título del catálogo espera el texto Catálogo de Recursos pero el h1 no lo contiene tras el cambio a Título incorrecto. Al fallar este paso, GitHub Actions detiene la ejecución del job: la etapa siguiente ("Construir Angular") no se ejecuta, y el workflow completo se marca como fallido (❌) en el Pull Request.
+Falla la etapa "Ejecutar pruebas" (npm test -- --watch=false), ya que el test debe mostrar el título del catálogo espera el texto Catálogo de Recursos pero el h1 no lo contiene tras el cambio a Título incorrecto. Al fallar este paso, GitHub Actions detiene la ejecución del job: la etapa siguiente ("Construir Angular") no se ejecuta, y el workflow completo se marca como fallido en el Pull Request.
 
 **Pregunta 9.** ¿Debería integrarse este Pull Request a main mientras el pipeline está fallando? Justifique.
 
